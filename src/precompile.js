@@ -88,8 +88,6 @@ function precompile(input, opts) {
         for(var i=0; i<templates.length; i++) {
             var name = templates[i].replace(path.join(input, '/'), '');
 
-            name = name.replace(/\\/g, '/');
-
             try {
                 precompiled.push( _precompile(
                     fs.readFileSync(templates[i], 'utf-8'),
@@ -108,6 +106,9 @@ function precompile(input, opts) {
             }
         }
     }
+    
+    var last = precompiled[precompiled.length - 1];
+    last.name = last.name.replace(/\\/g, '/');
 
     return wrapper(precompiled, opts);
 }
