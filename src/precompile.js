@@ -106,9 +106,6 @@ function precompile(input, opts) {
             }
         }
     }
-    
-    var last = precompiled[precompiled.length - 1];
-    last.name = last.name.replace(/\\/g, '/');
 
     return wrapper(precompiled, opts);
 }
@@ -119,6 +116,8 @@ function _precompile(str, name, env) {
     var asyncFilters = env.asyncFilters;
     var extensions = env.extensionsList;
     var template;
+
+    name = name.replace(/\\/g, '/');
 
     try {
         template = compiler.compile(str,
